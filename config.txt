@@ -1,0 +1,4 @@
+default_amount=10000
+default_interest=5.5
+default_period=60
+default_payment=300

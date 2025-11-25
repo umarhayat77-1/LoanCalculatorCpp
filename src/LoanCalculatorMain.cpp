@@ -3,6 +3,7 @@
 
 #include <exception>
 #include <iostream>
+#include <fstream>
 #include <stdexcept>
 #include <string>
 
@@ -38,6 +39,39 @@ const string ARG_INITIAL_PAYMENT   = "-ai";
 const string ARG_INTEREST          = "-i";
 const string ARG_OPENFEE           = "-of";
 const string ARG_OPENPERCENT       = "-op";
+
+void readConfigFile(const std::string& filename,
+                    float &defaultAmount,
+                    float &defaultInterest,
+                    int &defaultPeriod)
+{
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cout << "Could not open config file.\n";
+        return;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) {
+        if (line.empty()) continue;
+
+        size_t pos = line.find('=');
+        if (pos == std::string::npos) continue;
+
+        std::string key   = line.substr(0, pos);
+        std::string value = line.substr(pos + 1);
+
+        if (key == "default_amount") {
+            defaultAmount = std::stof(value);
+        }
+        else if (key == "default_interest") {
+            defaultInterest = std::stof(value);
+        }
+        else if (key == "default_period") {
+            defaultPeriod = std::stoi(value);
+        }
+    }
+}
 
 void loadCmdLine(CmdLineParser &clp)
 {

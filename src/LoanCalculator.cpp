@@ -37,6 +37,10 @@ float LoanCalculator::calculateLoanBalance()
     throw invalid_argument("Must set loan amount, interest, and elapsed period for this calculation" );
   }
 
+  if (interest_ < 0) {
+    throw invalid_argument("Interest rate cannot be negative");
+  }
+
   return (amount_*pow((1+interestPeriodic_), periodElapsed_)) -
          (payment_/interestPeriodic_)*(pow((1+interestPeriodic_), periodElapsed_)-1);
 }
@@ -50,6 +54,10 @@ float LoanCalculator::calculatePayment()
   if(!amountSet_ || !interestSet_ || !periodTotalSet_)
   {
     throw invalid_argument("Must set loan amount, interest, and total period for this calculation" );
+  }
+
+  if (amount_ <= 0) {
+    throw invalid_argument("Amount must be greater than zero");
   }
 
   float totalAmount = amount_ - initialPayment_;
@@ -72,6 +80,10 @@ float LoanCalculator::calculateNumberPayments()
   if(!amountSet_ || !interestSet_ || !paymentSet_)
   {
     throw invalid_argument("Must set loan amount, interest, and payment for this calculation" );
+  }
+
+  if (periodTotal_ <= 0) {
+    throw invalid_argument("Period must be greater than zero");
   }
 
   return (-1.0*log10(1.0-(interestPeriodic_*amount_/payment_))) /

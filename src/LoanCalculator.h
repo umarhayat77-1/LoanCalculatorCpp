@@ -109,22 +109,23 @@ public:
   std::string toString();
 
 private:
-  float amount_;        // loan amount
+  long double amount_;
+  long double interestPeriodic_;
+  long double payment_;
+  long double periodTotal_;
+  long double periodElapsed_;
+  
   bool amountSet_;
 
   float initialPayment_;     // initial down payment
 
   float interest_;          // interest rate, something like 6.75
-  float interestPeriodic_;  // this will be .0675/12
   bool interestSet_;
 
-  float payment_;       // payment amount
   bool paymentSet_;
 
-  int periodTotal_;     // total payment periods
   bool periodTotalSet_;
 
-  int periodElapsed_;   // number of elapsed payment periods
   bool periodElapsedSet_;
 
   // These two are used if loans charge a fee opening fee or percentage
