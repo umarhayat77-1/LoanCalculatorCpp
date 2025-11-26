@@ -1,0 +1,11 @@
+/**
+ * @file test_emi.cpp
+ * @brief GoogleTest unit tests for LoanCalculator.
+ *
+ * This file contains 3 required tests:
+ *  - Normal EMI calculation
+ *  - Invalid input handling
+ *  - Large tenure overflow test
+ */
+
+#include <g
